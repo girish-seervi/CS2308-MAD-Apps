@@ -1,0 +1,9 @@
+[
+  { "id": 4, "name": "Girish Kailash", "grade": "9.8 CGPA", "section": "BCA" },
+  { "id": 5, "name": "Riyan Shrestha", "grade": "8.7 CGPA", "section": "BCA" },
+  { "id": 6, "name": "Swaroop R", "grade": "4.9 CGPA", "section": "BCA" },
+  { "id": 7, "name": "Sumukh", "grade": "7.6 CGPA", "section": "BCA" },
+  { "id": 8, "name": "Aryan Yadav", "grade": "6.8 CGPA", "section": "BCA" },
+  { "id": 9, "name": "Deep Paul", "grade": "8.2 CGPA", "section": "BCA" },
+  { "id": 10, "name": "Jeevan R", "grade": "7.1 CGPA", "section": "BCA" }
+]

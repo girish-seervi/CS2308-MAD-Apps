@@ -7,26 +7,33 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import pokemonList from "./data.json";
+import students from "./students.json";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      
-      {/* Status Bar */}
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="#F5F5F5"
-      />
+
+      <StatusBar barStyle="dark-content" backgroundColor="#E8F5E9" />
+
+      {/* App Title */}
+      <Text style={styles.header}>Student Directory</Text>
 
       <FlatList
-        contentContainerStyle={{ padding: 16 }}
-        data={pokemonList}
+        data={students}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{ padding: 16 }}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.cardText}>{item.type}</Text>
-            <Text style={styles.cardText}>{item.name}</Text>
+            
+            {/* Student Name */}
+            <Text style={styles.name}>{item.name}</Text>
+
+            {/* Grade */}
+            <Text style={styles.detail}>Grade : {item.grade}</Text>
+
+            {/* Section */}
+            <Text style={styles.detail}>Section : {item.section}</Text>
+
           </View>
         )}
       />
@@ -37,19 +44,34 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#E8F5E9",
+  },
+
+  header: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 12,
+    color: "#1B5E20",
   },
 
   card: {
     backgroundColor: "#FFFFFF",
-    padding: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    marginBottom: 12,
+    padding: 18,
+    borderRadius: 12,
+    marginBottom: 14,
+    elevation: 4,
   },
 
-  cardText: {
-    fontSize: 20,
+  name: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#2E7D32",
+    marginBottom: 8,
+  },
+
+  detail: {
+    fontSize: 18,
+    color: "#333",
   },
 });
