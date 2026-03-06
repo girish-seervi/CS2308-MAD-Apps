@@ -1,30 +1,44 @@
-import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useContext } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { CartContext } from '../context/CartContext'
 
-const Details = ({ navigation, route }) => {
+export default function Details({ navigation, route }) {
 
-  const { product } = route.params
+  const { addToCart } = useContext(CartContext)
+  const product = route.params?.product
+
+  if (!product) {
+    return (
+      <View style={styles.container}>
+        <Text>No product data found</Text>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
 
+      <Image source={{ uri: product.image }} style={styles.image} />
+
       <Text style={styles.name}>{product.name}</Text>
-
       <Text style={styles.price}>{product.price}</Text>
+      <Text style={styles.description}>{product.description}</Text>
 
-      <Text style={styles.description}>
-        {product.description}
-      </Text>
-
+      {/* Add to Cart Button */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Cart', { product })}
+        onPress={() => {
+          addToCart(product)
+          // Correct routing to a nested tab screen
+          navigation.navigate('Main', { screen: 'Cart' })
+        }}
       >
-        <Text style={styles.buttonText}>Add to Cart 🛒</Text>
+        <Text style={styles.buttonText}>Add To Cart 🛒</Text>
       </TouchableOpacity>
 
+      {/* Go Back Button */}
       <TouchableOpacity
-        style={styles.backButton}
+        style={[styles.button, { backgroundColor: '#555' }]}
         onPress={() => navigation.goBack()}
       >
         <Text style={styles.buttonText}>Go Back</Text>
@@ -34,55 +48,42 @@ const Details = ({ navigation, route }) => {
   )
 }
 
-export default Details
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20
+    padding: 20,
+    backgroundColor: '#f2f2f2'
   },
-
+  image: {
+    width: '100%',
+    height: 250,
+    borderRadius: 15,
+    marginBottom: 20,
+    resizeMode: 'contain' 
+  },
   name: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold'
   },
-
   price: {
-    fontSize: 22,
+    fontSize: 20,
     color: 'green',
     marginVertical: 10
   },
-
   description: {
-    fontSize: 18,
-    textAlign: 'center',
+    fontSize: 16,
     marginBottom: 20
   },
-
   button: {
     backgroundColor: '#2196F3',
     padding: 15,
-    borderRadius: 8,
-    marginTop: 10,
-    width: '70%',
-    alignItems: 'center'
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 10
   },
-
-  backButton: {
-    backgroundColor: '#555',
-    padding: 15,
-    borderRadius: 8,
-    marginTop: 10,
-    width: '70%',
-    alignItems: 'center'
-  },
-
   buttonText: {
     color: '#fff',
-    fontSize: 18
+    fontSize: 18,
+    fontWeight: 'bold'
   }
-
 })

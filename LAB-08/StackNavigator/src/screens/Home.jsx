@@ -1,79 +1,81 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  Image
+} from 'react-native'
 
 const products = [
   {
     id: '1',
     name: 'iPhone 16 Pro',
     price: '₹1,19,900',
-    description: 'Apple flagship with A18 chip and advanced camera.'
+    image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTbzTTDxrE4EPaTgGG0qEkheYElilT0omctP3Oj6kexdvsqid9HWYiEhiUy41GRxGIUTAyWEsmGhL51aE7kEhIp7fJhq-QBdA'
   },
   {
     id: '2',
     name: 'Samsung Galaxy S25 Ultra',
     price: '₹1,29,999',
-    description: '200MP camera and powerful Snapdragon processor.'
+    image: 'https://m.media-amazon.com/images/I/71VNuwoQtxL.jpg'
   },
   {
     id: '3',
     name: 'Google Pixel 10 Pro',
     price: '₹1,09,999',
-    description: 'Best AI camera and clean Android experience.'
+    image: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRJmWC-jFr5zxpPGlJDNHXqSxowtXPHXCMLDkG8p3oN9O_OC3Hrz_KG5zRtVB2xDdYy7gj_0GRnNoIqlBZ6PRnTCc-MjlJpH_meV008vQqKeNeVzMGFEiA22g'
   },
   {
     id: '4',
     name: 'OnePlus 13',
     price: '₹64,999',
-    description: 'Fast performance and smooth UI experience.'
+    image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS_23TAN6eMcWQdOv6UCsbLUlKjy4STYPg9BP1ys9fJsqEJDrglLUEozhPSXYQV9CR58KAgrjCF6UHFaGK01jAazhNK5_O1QSW6ndU6wMmzAgKiJ5MFqa6IIJ6h1KSi4F_R7X-gI9Vfxg&usqp=CAc'
   },
   {
     id: '5',
     name: 'Xiaomi 15 Ultra',
     price: '₹1,09,999',
-    description: 'Premium camera and powerful hardware.'
-  },
-  {
-    id: '6',
-    name: 'iPhone 17',
-    price: '₹1,29,900',
-    description: 'Latest Apple smartphone with improved performance.'
-  },
-  {
-    id: '7',
-    name: 'Google Pixel 10 Pro XL',
-    price: '₹1,24,999',
-    description: 'Best display, camera, and AI features.'
-  },
-  {
-    id: '8',
-    name: 'OnePlus 15',
-    price: '₹72,999',
-    description: 'Latest flagship with powerful Snapdragon processor.'
+    image: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRqqXptff9Oo17OL2NDBrw-_cI0ufgMYWmyB-CC-nQT3entwOixB7VU32fUGe8ys8u65xrKfkxZ8oy4AlXwPRYKTz-D8opsz9KYv8qGGoqas2UjozuAJOSwIo0'
   }
 ]
 
 const Home = ({ navigation }) => {
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate('Details', { product: item })}
-    >
+    <View style={styles.card}>
+
+      <Image
+        source={{ uri: item.image }}
+        style={styles.image}
+      />
+
       <Text style={styles.name}>{item.name}</Text>
+
       <Text style={styles.price}>{item.price}</Text>
-      <Text style={styles.view}>View Details →</Text>
-    </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Details', { product: item })}
+      >
+        <Text style={styles.link}>View Details →</Text>
+      </TouchableOpacity>
+
+    </View>
   )
 
   return (
     <View style={styles.container}>
 
-      <Text style={styles.title}>Welcome to My Store 🛒</Text>
+      <Text style={styles.title}>
+        Welcome to My Store 🛒
+      </Text>
 
       <FlatList
         data={products}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
       />
 
     </View>
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    padding: 20,
+    padding: 15,
     backgroundColor: '#f2f2f2'
   },
 
@@ -99,26 +101,33 @@ const styles = StyleSheet.create({
 
   card: {
     backgroundColor: '#fff',
-    padding: 20,
+    borderRadius: 12,
+    padding: 15,
     marginBottom: 15,
-    borderRadius: 10,
-    elevation: 3
+    elevation: 4
+  },
+
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain'
   },
 
   name: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 10
   },
 
   price: {
     fontSize: 18,
     color: 'green',
-    marginTop: 5
+    marginVertical: 5
   },
 
-  view: {
-    marginTop: 10,
-    color: '#2196F3'
+  link: {
+    color: '#2196F3',
+    fontSize: 16
   }
 
 })

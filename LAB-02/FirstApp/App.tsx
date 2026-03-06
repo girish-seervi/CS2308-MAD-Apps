@@ -37,7 +37,7 @@ const App = () => {
 
 
       <TouchableOpacity style={{ padding: 20, backgroundColor: 'red' }}
-        onPress={() => Alert.alert("Presssseddd Meeeeeee")}
+        onPress={() => Alert.alert("Heyyyyyy techieeeeeeeeee youuu diddddddd longgggg presssss!!!")}
         onMagicTap={() => Alert.alert()}
         onLongPress={() => Alert.alert("Heyyyyyy techieeeeeeeeee youuu diddddddd longgggg presssss!!!")}
       >
